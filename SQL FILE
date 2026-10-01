@@ -1,0 +1,39 @@
+-- ============================================================================
+-- SDC310 Midterm Address Book Database Setup
+-- Database: sdc310_midterm
+-- User Account: ecpi_user
+-- ============================================================================
+
+-- 1. Create Database if it does not already exist
+CREATE DATABASE IF NOT EXISTS `sdc310_midterm` 
+DEFAULT CHARACTER SET utf8mb4 
+COLLATE utf8mb4_unicode_ci;
+
+USE `sdc310_midterm`;
+
+-- 2. Drop existing table to ensure clean setup
+DROP TABLE IF EXISTS `addresses`;
+
+-- 3. Create the addresses table structure
+CREATE TABLE `addresses` (
+    `AddressNo` INT(11) NOT NULL AUTO_INCREMENT,
+    `First`     VARCHAR(25) NOT NULL,
+    `Last`      VARCHAR(30) NOT NULL,
+    `Street`    VARCHAR(100) NOT NULL,
+    `City`      VARCHAR(25) NOT NULL,
+    `State`     VARCHAR(2) NOT NULL,
+    `Zip`       VARCHAR(10) NOT NULL,
+    PRIMARY KEY (`AddressNo`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- 4. Insert Sample Seed Data
+INSERT INTO `addresses` (`First`, `Last`, `Street`, `City`, `State`, `Zip`) 
+VALUES
+('Todd', 'Upshaw', '100 Campus Way', 'Chesapeake', 'VA', '23320'),
+('John', 'Doe', '123 Main Street', 'Virginia Beach', 'VA', '23462'),
+('Jane', 'Smith', '456 Oak Avenue', 'Norfolk', 'VA', '23510');
+
+-- 5. Create User Account (if not already existing) and Grant Privileges
+CREATE USER IF NOT EXISTS 'ecpi_user'@'localhost' IDENTIFIED BY 'Password1';
+GRANT ALL PRIVILEGES ON `sdc310_midterm`.* TO 'ecpi_user'@'localhost';
+FLUSH PRIVILEGES;
